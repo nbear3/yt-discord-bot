@@ -6,6 +6,7 @@ from flask_ask import Ask, statement
 from discord.ext import commands
 import urllib
 from bs4 import BeautifulSoup
+import threading
 
 loop = asyncio.get_event_loop()
 app = Flask(__name__)
@@ -20,7 +21,13 @@ async def on_ready():
     print(bot.user.id)
     print('------')
     print(search(global_ctx['song']))
-    bot.close()
+    await bot.close()
+
+
+def loop_in_thread(loop):
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(bot.run(os.environ['DISCORD_TOKEN']))
+
 
 def search(search_query):
     # query = urllib.quote(search_query)
@@ -34,7 +41,11 @@ def search(search_query):
 @ask.intent('GetSongIntent')
 def getSong(song):
     global_ctx['song'] = song
-    loop.run_until_complete(bot.run(os.environ['DISCORD_TOKEN']))
+
+    t = threading.Thread(target=loop_in_thread, args=(loop,))
+    t.start()
+
+    loop.run_until_complete()
     return statement(text).simple_card('Hello', text)
 
 # if __name__ == '__main__':
