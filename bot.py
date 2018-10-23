@@ -45,22 +45,16 @@ def search(search_query):
                 aliases=['p'])
 async def play_song(ctx, *search_query):
     url = search('+'.join(search_query).strip())
-    voice = await bot.join_voice_channel(global_player['bear'].voice.voice_channel)
+    voice = await bot.join_voice_channel(ctx.message.author.voice.voice_channel)
     player = await voice.create_ytdl_player(url)
-    global_player['yt'] = player
     player.start()
 
 
-global_player = {}
 @bot.event
 async def on_ready():
     print('Logged in as %s' % bot.user.name)
     print(bot.user.id)
     print('------')
-
-    global_player['bear'] = next((x for x in bot.get_all_members() if x.id=='156832648042512384' and x.voice.voice_channel is not None), None)
-    print(global_player['bear'].name)
-    print(global_player['bear'].voice.voice_channel)
 
 
 def search(search_query):
@@ -73,5 +67,5 @@ def search(search_query):
     return 'https://www.youtube.com' + vid['href']
 
 
-bot.run(os.environ['DISCORD_TOKEN'])
+bot.run('os.environ['DISCORD_TOKEN']')
 
