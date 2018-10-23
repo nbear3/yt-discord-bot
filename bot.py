@@ -45,9 +45,9 @@ def run_after(f_after):
 	        return ret
 	    return wrapped
 	return wrapper
-
-@ask.intent('GetSongIntent')
+	
 @run_after(run_bot)
+@ask.intent('GetSongIntent')
 def getSong(song):
     global_ctx['song'] = song
     return statement("Playing %s" % song).simple_card('Now Playing', song)
