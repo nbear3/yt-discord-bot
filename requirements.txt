@@ -3,3 +3,4 @@ Flask
 cryptography==2.1.4
 flask_ask
 gunicorn
+bs4
