@@ -43,8 +43,7 @@ ask = Ask(app, '/')
 
 @ask.intent('GetSongIntent')
 def getSong(song):
-	log.info(song)
-	text = "asdf"
+	text = song
 	return statement(text).simple_card('Hello', text)
 
 # if __name__ == '__main__':
