@@ -24,8 +24,7 @@ async def on_ready():
     await bot.close()
 
 
-def loop_in_thread(loop):
-    asyncio.set_event_loop(loop)
+def run_bot():
     loop.run_until_complete(bot.run(os.environ['DISCORD_TOKEN']))
 
 
@@ -38,14 +37,17 @@ def search(search_query):
     vid = soup.find(attrs={'class':'yt-uix-tile-link'})
     return 'https://www.youtube.com' + vid['href']
 
+def run_after(f_after):
+	def wrapper(f):
+	    def wrapped(*args, **kwargs):
+	        ret = f(*args, **kwargs)
+	        f_after()
+	        return ret
+	    return wrapped
+	return wrapper
+
 @ask.intent('GetSongIntent')
+@run_after(run_bot)
 def getSong(song):
     global_ctx['song'] = song
-
-    t = threading.Thread(target=loop_in_thread, args=(loop,))
-    t.start()
-
     return statement("Playing %s" % song).simple_card('Now Playing', song)
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
