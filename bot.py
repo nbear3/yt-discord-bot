@@ -45,7 +45,7 @@ def getSong(song):
     t = threading.Thread(target=loop_in_thread, args=(loop,))
     t.start()
 
-    return statement(text).simple_card('Hello', text)
+    return statement("Playing %s" % song).simple_card('Now Playing', song)
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
