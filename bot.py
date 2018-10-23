@@ -67,5 +67,5 @@ def search(search_query):
     return 'https://www.youtube.com' + vid['href']
 
 
-bot.run('os.environ['DISCORD_TOKEN']')
+bot.run(os.environ['DISCORD_TOKEN'])
 
