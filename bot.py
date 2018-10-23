@@ -10,15 +10,19 @@ from bs4 import BeautifulSoup
 
 OPUS_LIBS = ['libopus-0.x86.dll', 'libopus-0.x64.dll', 'libopus-0.dll', 'libopus.so.0', 'libopus.0.dylib']
 if not opus.is_loaded():
-    try:
-        opus.load_opus(opus_lib)
-        return
-    except OSError:
-        pass
+    for opus_lib in opus_libs:
+        try:
+            opus.load_opus(opus_lib)
+            return
+        except OSError:
+            pass
+
     raise RuntimeError('Could not load an opus lib. Tried %s' % (', '.join(opus_libs)))
+
     
 # app = Flask(__name__)    
 # ask = Ask(app, '/')
+
 bot = commands.Bot(command_prefix="!")
 # global_ctx = {}
 
