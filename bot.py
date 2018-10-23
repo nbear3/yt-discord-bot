@@ -8,10 +8,10 @@ import urllib
 from bs4 import BeautifulSoup
 import threading
 
-loop = asyncio.get_event_loop()
 app = Flask(__name__)
 ask = Ask(app, '/')
-bot = commands.Bot(command_prefix="!")
+loop = asyncio.new_event_loop()
+bot = commands.Bot(loop=loop, command_prefix="!")
 global_ctx = {}
 
 @bot.event
@@ -37,17 +37,10 @@ def search(search_query):
     vid = soup.find(attrs={'class':'yt-uix-tile-link'})
     return 'https://www.youtube.com' + vid['href']
 
-def run_after(f_after):
-	def wrapper(f):
-	    def wrapped(*args, **kwargs):
-	        ret = f(*args, **kwargs)
-	        f_after()
-	        return ret
-	    return wrapped
-	return wrapper
-	
-@run_after(run_bot)
+
 @ask.intent('GetSongIntent')
 def getSong(song):
     global_ctx['song'] = song
+    run_bot()
     return statement("Playing %s" % song).simple_card('Now Playing', song)
+
