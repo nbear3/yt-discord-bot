@@ -34,7 +34,7 @@ def search(search_query):
 @ask.intent('GetSongIntent')
 def getSong(song):
     global_ctx['song'] = song
-    loop.ensure_future(bot.run(os.environ['DISCORD_TOKEN']))
+    loop.run_until_complete(bot.run(os.environ['DISCORD_TOKEN']))
     return statement(text).simple_card('Hello', text)
 
 # if __name__ == '__main__':
