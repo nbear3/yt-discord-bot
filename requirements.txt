@@ -2,4 +2,4 @@ git+https://github.com/Rapptz/discord.py@rewrite#egg=discord.py[voice]
 Flask
 cryptography
 flask_ask
-cryptography
+gunicorn

@@ -42,9 +42,9 @@ app = Flask(__name__)
 ask = Ask(app, '/')
 
 @ask.intent('GetSongIntent')
-def hello(firstname):
-    text = render_template('hello', firstname=firstname)
+def hello(song):
+    text = render_template('hello', song=song)
     return statement(text).simple_card('Hello', text)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
