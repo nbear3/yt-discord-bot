@@ -38,7 +38,7 @@ def search(search_query):
 #     return statement("Playing %s" % song).simple_card('Now Playing', song)
 
 
-@client.command(name='play',
+@bot.command(name='play',
                 pass_context=True,
                 description='play from youtube',
                 brief='URL',
@@ -51,7 +51,7 @@ async def play_song(ctx, *search_query):
     player.start()
 
 
-@client.event
+@bot.event
 async def on_ready():
     print('Logged in as %s' % client.user.name)
     print(client.user.id)
