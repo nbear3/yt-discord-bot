@@ -45,7 +45,7 @@ def search(search_query):
                 aliases=['p'])
 async def play_song(ctx, *search_query):
     url = search('+'.join(search_query).strip())
-    voice = await client.join_voice_channel(global_player['bear'].voice.voice_channel)
+    voice = await bot.join_voice_channel(global_player['bear'].voice.voice_channel)
     player = await voice.create_ytdl_player(url)
     global_player['yt'] = player
     player.start()
@@ -53,8 +53,8 @@ async def play_song(ctx, *search_query):
 
 @bot.event
 async def on_ready():
-    print('Logged in as %s' % client.user.name)
-    print(client.user.id)
+    print('Logged in as %s' % bot.user.name)
+    print(bot.user.id)
     print('------')
 
 
