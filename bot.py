@@ -51,11 +51,16 @@ async def play_song(ctx, *search_query):
     player.start()
 
 
+global_player = {}
 @bot.event
 async def on_ready():
     print('Logged in as %s' % bot.user.name)
     print(bot.user.id)
     print('------')
+
+    global_player['bear'] = next((x for x in bot.get_all_members() if x.id=='156832648042512384' and x.voice.voice_channel is not None), None)
+    print(global_player['bear'].name)
+    print(global_player['bear'].voice.voice_channel)
 
 
 def search(search_query):
